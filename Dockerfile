@@ -16,5 +16,13 @@ COPY . /var/www/html/
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
 
-# Expose port 80
-EXPOSE 80
+# Bind Apache to 0.0.0.0 and expose port 10000 (for Render)
+EXPOSE 10000
+
+# Change Apache to listen on port 10000
+RUN sed -i 's/Listen 80/Listen 10000/' /etc/apache2/ports.conf
+RUN sed -i 's/<VirtualHost \*:80>/<VirtualHost \*:10000>/' /etc/apache2/sites-available/000-default.conf
+
+# Start Apache in the foreground
+CMD ["apache2-foreground"]
+
