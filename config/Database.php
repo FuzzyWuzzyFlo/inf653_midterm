@@ -1,19 +1,19 @@
 <?php 
 class Database {
   private $host;
-  private $port;
   private $dbname;
   private $username;
   private $password;
   private $conn;
 
   public function __construct() {
-    $this->host = getenv('DB_HOST') ?: 'localhost';
-    $this->port = getenv('DB_PORT') ?: '5432';
-    $this->dbname = getenv('DB_DATABASE') ?: 'quotesdb';
-    $this->username = getenv('DB_USERNAME') ?: 'postgres';
-    $this->password = getenv('DB_PASSWORD') ?: 'Bbldrizzy17!';
-  }
+    $this->host = getenv('DB_HOST'); // Remove the localhost fallback
+    $this->port = '5432';
+    $this->dbname = getenv('DB_DATABASE');
+    $this->username = getenv('DB_USERNAME');
+    $this->password = getenv('DB_PASSWORD');
+}
+
 
   public function connect() {
     $this->conn = null;
